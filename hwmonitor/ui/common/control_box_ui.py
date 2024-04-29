@@ -15,6 +15,7 @@ class UiControlBox:
         self._form_layout = QFormLayout()
 
         self.show_cursor_position = self._property_checkbox("show_cursor_position", view)
+        self.show_vertical_lines = self._property_checkbox("show_vertical_lines", view)
         self.show_diagonal_lines = self._property_checkbox("show_diagonal_lines", view)
         self.show_horizontal_lines = self._property_checkbox("show_horizontal_lines", view)
         self.antialiasing = self._property_checkbox("antialiasing", view)
@@ -23,6 +24,7 @@ class UiControlBox:
         self.show_info_box = self._property_checkbox("show_info_box", view)
 
         self._form_layout.addRow("Show cursor position", self.show_cursor_position)
+        self._form_layout.addRow("Show vertical lines", self.show_vertical_lines)
         self._form_layout.addRow("Show diagonal lines", self.show_diagonal_lines)
         self._form_layout.addRow("Show horizontal lines", self.show_horizontal_lines)
         self._form_layout.addRow("Antialiasing", self.antialiasing)

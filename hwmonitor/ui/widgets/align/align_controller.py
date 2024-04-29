@@ -46,6 +46,10 @@ class AlignController:
             model.monitor.position_y += 1
         elif key == Qt.Key_Down and not model.monitor.primary:
             model.monitor.position_y -= 1
+        elif key == Qt.Key_Left and not model.monitor.primary:
+            model.monitor.position_x -= 1
+        elif key == Qt.Key_Right and not model.monitor.primary:
+            model.monitor.position_x += 1
         elif key == Qt.Key_PageUp and not model.monitor.primary:
             model.monitor.position_y += 10
         elif key == Qt.Key_PageDown and not model.monitor.primary:

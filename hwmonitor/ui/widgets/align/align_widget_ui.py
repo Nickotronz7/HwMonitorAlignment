@@ -38,10 +38,12 @@ class UiAlignWidget:
 
         self.diagonal_lines_layer = GraphicsLayer(visible=self.model.common_model.show_diagonal_lines, level=1)
         self.horizontal_lines_layer = GraphicsLayer(visible=self.model.common_model.show_horizontal_lines, level=2)
-        self.info_box_layer = GraphicsLayer(visible=self.model.common_model.show_info_box, level=3)
-        self.control_box_layer = GraphicsLayer(level=4)
+        self.vertical_lines_layer = GraphicsLayer(visible=self.model.common_model.show_vertical_lines, level=3)
+        self.info_box_layer = GraphicsLayer(visible=self.model.common_model.show_info_box, level=4)
+        self.control_box_layer = GraphicsLayer(level=5)
 
         self.model.common_model.changed("show_diagonal_lines").connect(self.diagonal_lines_layer.set_visible)
+        self.model.common_model.changed("show_vertical_lines").connect(self.vertical_lines_layer.set_visible)
         self.model.common_model.changed("show_horizontal_lines").connect(self.horizontal_lines_layer.set_visible)
         self.model.common_model.changed("antialiasing").connect(self._toggle_antialiasing)
         self.model.common_model.changed("show_info_box").connect(self.info_box_layer.set_visible)
@@ -49,8 +51,10 @@ class UiAlignWidget:
         self.info_box = MonitorInfoBoxItem(self.model)
         self.control_box = ControlBoxItem(self.model.common_model)
         self.horizontal_lines = AlignmentLineItem(self.model)
+        self.vertical_lines = AlignmentLineItem(self.model)
 
         self.create_diagonal_lines()
+        self.create_vertical_lines()
         self.create_info_box()
         self.create_horizontal_lines()
         if self.model.monitor.primary:
@@ -82,6 +86,14 @@ class UiAlignWidget:
     def create_horizontal_lines(self):
         self.horizontal_lines_layer.add_to_layer(self.horizontal_lines)
         self.graphics_scene.addItem(self.horizontal_lines)
+
+    def create_vertical_lines(self):
+        center_line = QGraphicsLineItem(self.model.monitor.screen_width/2, 0,
+                                         self.model.monitor.screen_width/2, self.model.monitor.screen_height)
+
+        
+        self.vertical_lines_layer.add_to_layer(center_line)
+        self.graphics_scene.addItem(center_line)
 
     def _toggle_antialiasing(self, antialiasing):
         self.view.setRenderHint(QPainter.Antialiasing, antialiasing)
